@@ -1,7 +1,5 @@
 import java.io.*;
 
-
-
 class Graph1 
 { 
     // number of vertices 
@@ -507,7 +505,7 @@ class Graph4
 
 
 
-class SourceCode
+class Code
 { 
     public static void main(String[] args) 
     { 
