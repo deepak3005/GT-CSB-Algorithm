@@ -4,7 +4,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+
+import net.proteanit.sql.DbUtils;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -15,6 +22,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -29,6 +40,9 @@ public class GTCSB extends JFrame {
 	private JTextField txtGtcsbMinimumCost;
 	private JTextField textField_2;
 	private JTable table;
+	private JScrollPane scrollPane;
+	int row_count_cloud1 = 0;
+	int row_count_cloud2 = 0;
 
 	/**
 	 * Launch the application.
@@ -86,13 +100,117 @@ public class GTCSB extends JFrame {
 		textField_2.setBounds(300, 150, 185, 35);
 		contentPane.add(textField_2);
 		
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Cloud 1", "Cloud 2"}));
 		comboBox.setFont(new Font("Cambria", Font.BOLD, 15));
 		comboBox.setBounds(511, 150, 84, 30);
 		contentPane.add(comboBox);
 		
 		JButton btnNewButton = new JButton("Get Data From Cloud");
+		btnNewButton.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				if(comboBox.getSelectedItem()=="Cloud 1")
+				{
+					try 
+			        {
+			        	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/minor2", "root", "");
+			               
+			            String query2 = "SELECT File_Number,File_Name,File_Size,Access_Frequency,Storage_Cost,Computation_Cost,Bandwidth_Cost FROM cloud1";
+
+			            Statement sta = connection.createStatement();
+			            ResultSet rs2 = sta.executeQuery(query2);
+			            
+			            table.setModel(DbUtils.resultSetToTableModel(rs2));
+			            
+			            ResultSet rs3 = sta.executeQuery(query2);
+			            while(rs3.next())
+			            {
+			            	row_count_cloud1++;
+			            }
+			            
+			            connection.close();
+			        }
+			        catch (Exception exception) 
+			        {
+			            exception.printStackTrace();
+			        }
+					
+					TableColumn col1 = table.getColumnModel().getColumn(0);
+				    col1.setPreferredWidth(100);
+				    TableColumn col2 = table.getColumnModel().getColumn(1);
+				    col2.setPreferredWidth(190);
+				    TableColumn col3 = table.getColumnModel().getColumn(2);
+				    col3.setPreferredWidth(100);
+				    TableColumn col4 = table.getColumnModel().getColumn(3);
+				    col4.setPreferredWidth(150);
+				    TableColumn col5 = table.getColumnModel().getColumn(4);
+				    col5.setPreferredWidth(100);
+				    TableColumn col6 = table.getColumnModel().getColumn(5);
+				    col6.setPreferredWidth(135);
+				    TableColumn col7 = table.getColumnModel().getColumn(6);
+				    col7.setPreferredWidth(145);
+				    
+				    JTableHeader tableHeader = table.getTableHeader();
+				    tableHeader.setBackground(Color.black);
+				    tableHeader.setForeground(Color.white);
+				    Font headerFont = new Font("Cambria", Font.BOLD, 16);
+				    tableHeader.setFont(headerFont);
+				    tableHeader.setPreferredSize(new Dimension(50,40));
+				}
+				
+				if(comboBox.getSelectedItem()=="Cloud 2")
+				{
+					try 
+			        {
+			        	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/minor2", "root", "");
+			               
+			            String query2 = "SELECT File_Number,File_Name,File_Size,Access_Frequency,Storage_Cost,Computation_Cost,Bandwidth_Cost FROM cloud2";
+
+			            Statement sta = connection.createStatement();
+			            ResultSet rs2 = sta.executeQuery(query2);
+			            
+			            table.setModel(DbUtils.resultSetToTableModel(rs2));
+			            
+			            ResultSet rs3 = sta.executeQuery(query2);
+			            while(rs3.next())
+			            {
+			            	row_count_cloud2++;
+			            }
+			            
+			            connection.close();
+			        }
+			        catch (Exception exception) 
+			        {
+			            exception.printStackTrace();
+			        }
+					
+					TableColumn col1 = table.getColumnModel().getColumn(0);
+				    col1.setPreferredWidth(100);
+				    TableColumn col2 = table.getColumnModel().getColumn(1);
+				    col2.setPreferredWidth(190);
+				    TableColumn col3 = table.getColumnModel().getColumn(2);
+				    col3.setPreferredWidth(100);
+				    TableColumn col4 = table.getColumnModel().getColumn(3);
+				    col4.setPreferredWidth(150);
+				    TableColumn col5 = table.getColumnModel().getColumn(4);
+				    col5.setPreferredWidth(100);
+				    TableColumn col6 = table.getColumnModel().getColumn(5);
+				    col6.setPreferredWidth(135);
+				    TableColumn col7 = table.getColumnModel().getColumn(6);
+				    col7.setPreferredWidth(145);
+				    
+				    JTableHeader tableHeader = table.getTableHeader();
+				    tableHeader.setBackground(Color.black);
+				    tableHeader.setForeground(Color.white);
+				    Font headerFont = new Font("Cambria", Font.BOLD, 16);
+				    tableHeader.setFont(headerFont);
+				    tableHeader.setPreferredSize(new Dimension(50,40));
+				}
+			}
+		});
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 17));
@@ -102,6 +220,23 @@ public class GTCSB extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnRunGtcsbMin = new JButton("Run GT-CSB Min Cost Algorithm");
+		btnRunGtcsbMin.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				if(comboBox.getSelectedItem()=="Cloud 1")
+				{
+					Code c1 = new Code();
+					c1.main(row_count_cloud1);
+				}
+				if(comboBox.getSelectedItem()=="Cloud 2")
+				{
+					Code c1 = new Code();
+					c1.main(row_count_cloud2);
+				}
+			}
+		});
 		btnRunGtcsbMin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRunGtcsbMin.setForeground(Color.WHITE);
 		btnRunGtcsbMin.setFont(new Font("Cambria", Font.BOLD, 17));
@@ -125,9 +260,25 @@ public class GTCSB extends JFrame {
 		textArea.setBounds(685, 150, 339, 190);
 		contentPane.add(textArea);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(93, 380, 1114, 210);
+		contentPane.add(scrollPane);
+		
 		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setBackground(Color.WHITE);
+		table.setForeground(Color.black);
+		table.setGridColor(Color.black);
+		table.setRowHeight(40);
+		
+		DefaultTableCellRenderer r=new DefaultTableCellRenderer();
+	    r.setHorizontalAlignment(JLabel.CENTER);
+	    table.setDefaultRenderer(Object.class,r);
+		
+		Font headerFont1 = new Font("Cambria", Font.BOLD, 16);
+	    table.setFont(headerFont1);
 		table.setBounds(93, 385, 1114, 210);
-		contentPane.add(table);
+		//contentPane.add(table);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setToolTipText("Back");
