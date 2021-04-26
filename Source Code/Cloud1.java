@@ -206,7 +206,7 @@ public class Cloud1 extends JFrame {
                     
                     String query1 = "SELECT * from cloud1";
                     Statement sta1 = connection.createStatement();
-                    ResultSet rs = sta1.executeQuery(query1);
+                    ResultSet rs = sta1.executeQuery(query1); 
                     
                     int count = 0;
                     
@@ -342,44 +342,12 @@ public class Cloud1 extends JFrame {
 		contentPane.add(BandwidthCostInput);
 		
 		JButton btnCalculateCost_1 = new JButton("Access  File");
-		btnCalculateCost_1.addMouseListener(new MouseAdapter() 
-		{
-			@Override
-			public void mouseClicked(MouseEvent e) 
-			{
-				if(SelectedRowName==null)
-				{
-					JOptionPane.showMessageDialog(null, new JLabel("Please select a file to access !", JLabel.CENTER), "No file selected", JOptionPane.ERROR_MESSAGE);
-				}
-				else
-				{
-					SelectedRowAccess = SelectedRowAccess+1;
-					
-					try 
-	            	{
-	                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/minor2", "root", "");
-	                    
-	                    String query = "UPDATE cloud1 SET Access_Frequency='"+SelectedRowAccess+"' WHERE File_Name='"+SelectedRowName+"'";
-                        Statement sta = connection.createStatement();
-                        sta.executeUpdate(query);
-	                    connection.close();
-	                    
-	                }
-	                catch (Exception exception) 
-	            	{
-	                    exception.printStackTrace();
-	                }
-					
-					displayTable();
-				}
-			}
-		});
-		btnCalculateCost_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCalculateCost_1.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		btnCalculateCost_1.setForeground(Color.WHITE);
 		btnCalculateCost_1.setFont(new Font("Cambria", Font.BOLD, 18));
 		btnCalculateCost_1.setBorder(null);
 		btnCalculateCost_1.setBackground(new Color(65, 105, 225));
-		btnCalculateCost_1.setBounds(705, 310, 200, 35);
+		btnCalculateCost_1.setBounds(705, 310, 150, 35);
 		contentPane.add(btnCalculateCost_1);
 		
 		btnBrowseFiles = new JButton("Browse  Files");
@@ -443,13 +411,50 @@ public class Cloud1 extends JFrame {
 		btnBrowseFiles.setBounds(93, 310, 200, 35);
 		contentPane.add(btnBrowseFiles);
 		
-		btnCalculateCost_2 = new JButton("Reload  Table");
+		btnCalculateCost_2 = new JButton("Reset  Cost");
 		btnCalculateCost_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCalculateCost_2.addMouseListener(new MouseAdapter() 
 		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
+				try 
+                {
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/minor2", "root", "");
+                    
+                    String query1 = "SELECT * from cloud1";
+                    Statement sta1 = connection.createStatement();
+                    ResultSet rs = sta1.executeQuery(query1); 
+                    
+                    int count = 0;
+                    
+                    while(rs.next())
+                    {
+                    	count++;
+                        
+                        int CalculateStorage = 0;
+                        int CalculateComputation = 0;
+                        int CalculateBandwidth = 0;
+                        
+                        String query2 = "UPDATE cloud1 SET Storage_Cost='"+CalculateStorage+"' WHERE File_Number='"+count+"'";
+                        Statement sta2 = connection.createStatement();
+                        sta2.executeUpdate(query2);
+                        
+                        String query3 = "UPDATE cloud1 SET Computation_Cost='"+CalculateComputation+"' WHERE File_Number='"+count+"'";
+                        Statement sta3 = connection.createStatement();
+                        sta3.executeUpdate(query3);
+                        
+                        String query4 = "UPDATE cloud1 SET Bandwidth_Cost='"+CalculateBandwidth+"' WHERE File_Number='"+count+"'";
+                        Statement sta4 = connection.createStatement();
+                        sta4.executeUpdate(query4);
+                    }
+                    
+                    connection.close();
+                }
+                catch (Exception exception) 
+                {
+                	exception.printStackTrace();
+                }
 				displayTable();
 			}
 		});
@@ -457,7 +462,7 @@ public class Cloud1 extends JFrame {
 		btnCalculateCost_2.setFont(new Font("Cambria", Font.BOLD, 18));
 		btnCalculateCost_2.setBorder(null);
 		btnCalculateCost_2.setBackground(new Color(65, 105, 225));
-		btnCalculateCost_2.setBounds(1007, 310, 200, 35);
+		btnCalculateCost_2.setBounds(1040, 310, 167, 35);
 		contentPane.add(btnCalculateCost_2);
 		Toolkit toolkit = getToolkit();
 		Dimension size = toolkit.getScreenSize();
@@ -480,6 +485,91 @@ public class Cloud1 extends JFrame {
 		lblNewLabel_1.setIcon(new ImageIcon(img1));
 		lblNewLabel_1.setBounds(15, 15, 50, 48);
 		contentPane.add(lblNewLabel_1);
+		
+		JButton btnCalculateCost_1_1 = new JButton("+");
+		btnCalculateCost_1_1.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				if(SelectedRowName==null)
+				{
+					JOptionPane.showMessageDialog(null, new JLabel("Please select a file to access !", JLabel.CENTER), "No file selected", JOptionPane.ERROR_MESSAGE);
+				}
+				else
+				{
+					SelectedRowAccess = SelectedRowAccess+1;
+					
+					try 
+	            	{
+	                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/minor2", "root", "");
+	                    
+	                    String query = "UPDATE cloud1 SET Access_Frequency='"+SelectedRowAccess+"' WHERE File_Name='"+SelectedRowName+"'";
+                        Statement sta = connection.createStatement();
+                        sta.executeUpdate(query);
+	                    connection.close();
+	                    
+	                }
+	                catch (Exception exception) 
+	            	{
+	                    exception.printStackTrace();
+	                }
+					
+					displayTable();
+				}
+			}
+		});
+		btnCalculateCost_1_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCalculateCost_1_1.setForeground(Color.WHITE);
+		btnCalculateCost_1_1.setFont(new Font("Cambria", Font.BOLD, 30));
+		btnCalculateCost_1_1.setBorder(null);
+		btnCalculateCost_1_1.setBackground(new Color(65, 105, 225));
+		btnCalculateCost_1_1.setBounds(860, 310, 35, 35);
+		contentPane.add(btnCalculateCost_1_1);
+		
+		JButton btnCalculateCost_1_1_1 = new JButton("-");
+		btnCalculateCost_1_1_1.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				if(SelectedRowName==null)
+				{
+					JOptionPane.showMessageDialog(null, new JLabel("Please select a file to access !", JLabel.CENTER), "No file selected", JOptionPane.ERROR_MESSAGE);
+				}
+				else
+				{
+					if(SelectedRowAccess>1)
+					{
+						SelectedRowAccess = SelectedRowAccess-1;
+						
+						try 
+		            	{
+		                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/minor2", "root", "");
+		                    
+		                    String query = "UPDATE cloud1 SET Access_Frequency='"+SelectedRowAccess+"' WHERE File_Name='"+SelectedRowName+"'";
+	                        Statement sta = connection.createStatement();
+	                        sta.executeUpdate(query);
+		                    connection.close();
+		                    
+		                }
+		                catch (Exception exception) 
+		            	{
+		                    exception.printStackTrace();
+		                }
+						
+						displayTable();
+					}
+				}
+			}
+		});
+		btnCalculateCost_1_1_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCalculateCost_1_1_1.setForeground(Color.WHITE);
+		btnCalculateCost_1_1_1.setFont(new Font("Cambria", Font.BOLD, 32));
+		btnCalculateCost_1_1_1.setBorder(null);
+		btnCalculateCost_1_1_1.setBackground(new Color(65, 105, 225));
+		btnCalculateCost_1_1_1.setBounds(900, 310, 35, 35);
+		contentPane.add(btnCalculateCost_1_1_1);
 		
 		
 		displayTable();
