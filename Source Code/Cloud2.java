@@ -76,6 +76,24 @@ public class Cloud2 extends JFrame {
             
             table.setModel(DbUtils.resultSetToTableModel(rs2));
             
+            String query3 = "SELECT Input_SC FROM cloud2";
+            Statement sta3 = connection.createStatement();
+            ResultSet rs3 = sta.executeQuery(query3);
+            rs3.next();
+            StorageCostInput.setText((rs3.getString(1)));
+            
+            String query4 = "SELECT Input_CC FROM cloud2";
+            Statement sta4 = connection.createStatement();
+            ResultSet rs4 = sta.executeQuery(query4);
+            rs4.next();
+            ComputationCostInput.setText((rs4.getString(1)));
+            
+            String query5 = "SELECT Input_BC FROM cloud2";
+            Statement sta5 = connection.createStatement();
+            ResultSet rs5 = sta.executeQuery(query5);
+            rs5.next();
+            BandwidthCostInput.setText((rs5.getString(1)));
+            
             connection.close();
         }
         catch (Exception exception) 
@@ -232,6 +250,25 @@ public class Cloud2 extends JFrame {
                         String query4 = "UPDATE cloud2 SET Bandwidth_Cost='"+CalculateBandwidth+"' WHERE File_Number='"+count+"'";
                         Statement sta4 = connection.createStatement();
                         sta4.executeUpdate(query4);
+                        
+                        float CCandBC = CalculateComputation + CalculateBandwidth;
+                        
+                        String query5 = "UPDATE cloud2 SET CC_and_BC='"+CCandBC+"' WHERE File_Number='"+count+"'";
+                        Statement sta5 = connection.createStatement();
+                        sta4.executeUpdate(query5);
+                        
+                        String query6 = "UPDATE cloud2 SET Input_SC='"+StorageCostEntered+"' WHERE File_Number='"+count+"'";
+                        Statement sta6 = connection.createStatement();
+                        sta4.executeUpdate(query6);
+                        
+                        String query7 = "UPDATE cloud2 SET Input_CC='"+ComputationCostEntered+"' WHERE File_Number='"+count+"'";
+                        Statement sta7 = connection.createStatement();
+                        sta4.executeUpdate(query7);
+                        
+                        String query8 = "UPDATE cloud2 SET Input_BC='"+BandwidthCostEntered+"' WHERE File_Number='"+count+"'";
+                        Statement sta8 = connection.createStatement();
+                        sta4.executeUpdate(query8);
+                        
                     }
                     
                     connection.close();
@@ -285,6 +322,7 @@ public class Cloud2 extends JFrame {
 		contentPane.add(txtBandwidthCostkbps);
 		
 		StorageCostInput = new JTextField();
+		StorageCostInput.setText("0");
 		StorageCostInput.addKeyListener(new KeyAdapter() 
 		{
 			@Override
@@ -304,6 +342,7 @@ public class Cloud2 extends JFrame {
 		StorageCostInput.setColumns(10);
 		
 		ComputationCostInput = new JTextField();
+		ComputationCostInput.setText("0");
 		ComputationCostInput.addKeyListener(new KeyAdapter() 
 		{
 			@Override
@@ -323,6 +362,7 @@ public class Cloud2 extends JFrame {
 		contentPane.add(ComputationCostInput);
 		
 		BandwidthCostInput = new JTextField();
+		BandwidthCostInput.setText("0");
 		BandwidthCostInput.addKeyListener(new KeyAdapter() 
 		{
 			@Override
@@ -360,7 +400,10 @@ public class Cloud2 extends JFrame {
 				int sc = 0;
 				int cc = 0;
 				int bc = 0;
-				
+				int ccANDbc = 0;
+				int isc = 0;
+				int icc = 0;
+				int ibc = 0;
 				
 				//JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 				File f = new File("D:\\College Material\\Projects\\Minor-2 Project");
@@ -388,7 +431,7 @@ public class Cloud2 extends JFrame {
                                 i++;
                             }
                                 
-                            String query2 = "INSERT INTO cloud2 values('" + i + "','" + file.getName() + "','" + file.length() + "','" + af + "','" + sc + "','" + cc + "','" + bc + "')";
+                            String query2 = "INSERT INTO cloud2 values('" + i + "','" + file.getName() + "','" + file.length() + "','" + af + "','" + sc + "','" + cc + "','" + bc + "','" + ccANDbc + "','" + isc + "','" + icc + "','" + ibc + "')";
                             Statement sta2 = connection.createStatement();
                             sta2.executeUpdate(query2);
                             
