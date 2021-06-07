@@ -204,12 +204,6 @@ public class Cloud2 extends JFrame {
 			}
 		});
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Cambria", Font.BOLD, 15));
-		textArea.setEditable(false);
-		textArea.setBounds(680, 160, 339, 115);
-		contentPane.add(textArea);
-		
 		JButton btnCalculateCost = new JButton("Calculate  Cost");
 		btnCalculateCost.addMouseListener(new MouseAdapter() 
 		{
@@ -285,40 +279,40 @@ public class Cloud2 extends JFrame {
 		btnCalculateCost.setFont(new Font("Cambria", Font.BOLD, 18));
 		btnCalculateCost.setBorder(null);
 		btnCalculateCost.setBackground(new Color(65, 105, 225));
-		btnCalculateCost.setBounds(400, 310, 200, 35);
+		btnCalculateCost.setBounds(400, 305, 200, 35);
 		contentPane.add(btnCalculateCost);
 		
 		txtStorageCostkb = new JTextField();
-		txtStorageCostkb.setText("Storage  Cost/KB");
+		txtStorageCostkb.setText("Storage  Cost/KB (INR)");
 		txtStorageCostkb.setForeground(Color.WHITE);
 		txtStorageCostkb.setFont(new Font("Cambria", Font.BOLD, 18));
 		txtStorageCostkb.setEditable(false);
 		txtStorageCostkb.setColumns(10);
 		txtStorageCostkb.setBorder(null);
 		txtStorageCostkb.setBackground(Color.DARK_GRAY);
-		txtStorageCostkb.setBounds(260, 165, 200, 25);
+		txtStorageCostkb.setBounds(480, 157, 200, 25);
 		contentPane.add(txtStorageCostkb);
 		
 		txtComputationCostkb = new JTextField();
-		txtComputationCostkb.setText("Computation  Cost/KB");
+		txtComputationCostkb.setText("Computation  Cost/KB (INR)");
 		txtComputationCostkb.setForeground(Color.WHITE);
 		txtComputationCostkb.setFont(new Font("Cambria", Font.BOLD, 18));
 		txtComputationCostkb.setEditable(false);
 		txtComputationCostkb.setColumns(10);
 		txtComputationCostkb.setBorder(null);
 		txtComputationCostkb.setBackground(Color.DARK_GRAY);
-		txtComputationCostkb.setBounds(260, 208, 200, 25);
+		txtComputationCostkb.setBounds(480, 200, 240, 25);
 		contentPane.add(txtComputationCostkb);
 		
 		txtBandwidthCostkbps = new JTextField();
-		txtBandwidthCostkbps.setText("Bandwidth  Cost/KBPS");
+		txtBandwidthCostkbps.setText("Bandwidth  Cost/KBPS (INR)");
 		txtBandwidthCostkbps.setForeground(Color.WHITE);
 		txtBandwidthCostkbps.setFont(new Font("Cambria", Font.BOLD, 18));
 		txtBandwidthCostkbps.setEditable(false);
 		txtBandwidthCostkbps.setColumns(10);
 		txtBandwidthCostkbps.setBorder(null);
 		txtBandwidthCostkbps.setBackground(Color.DARK_GRAY);
-		txtBandwidthCostkbps.setBounds(260, 250, 200, 25);
+		txtBandwidthCostkbps.setBounds(480, 242, 240, 25);
 		contentPane.add(txtBandwidthCostkbps);
 		
 		StorageCostInput = new JTextField();
@@ -337,7 +331,7 @@ public class Cloud2 extends JFrame {
 		});
 		StorageCostInput.setFont(new Font("Cambria", Font.BOLD, 15));
 		StorageCostInput.setHorizontalAlignment(SwingConstants.CENTER);
-		StorageCostInput.setBounds(480, 160, 80, 28);
+		StorageCostInput.setBounds(730, 155, 80, 28);
 		contentPane.add(StorageCostInput);
 		StorageCostInput.setColumns(10);
 		
@@ -358,7 +352,7 @@ public class Cloud2 extends JFrame {
 		ComputationCostInput.setHorizontalAlignment(SwingConstants.CENTER);
 		ComputationCostInput.setFont(new Font("Cambria", Font.BOLD, 15));
 		ComputationCostInput.setColumns(10);
-		ComputationCostInput.setBounds(480, 205, 80, 28);
+		ComputationCostInput.setBounds(730, 200, 80, 28);
 		contentPane.add(ComputationCostInput);
 		
 		BandwidthCostInput = new JTextField();
@@ -378,7 +372,7 @@ public class Cloud2 extends JFrame {
 		BandwidthCostInput.setHorizontalAlignment(SwingConstants.CENTER);
 		BandwidthCostInput.setFont(new Font("Cambria", Font.BOLD, 15));
 		BandwidthCostInput.setColumns(10);
-		BandwidthCostInput.setBounds(480, 247, 80, 28);
+		BandwidthCostInput.setBounds(730, 242, 80, 28);
 		contentPane.add(BandwidthCostInput);
 		
 		JButton btnCalculateCost_1 = new JButton("Access  File");
@@ -387,7 +381,7 @@ public class Cloud2 extends JFrame {
 		btnCalculateCost_1.setFont(new Font("Cambria", Font.BOLD, 18));
 		btnCalculateCost_1.setBorder(null);
 		btnCalculateCost_1.setBackground(new Color(65, 105, 225));
-		btnCalculateCost_1.setBounds(705, 310, 150, 35);
+		btnCalculateCost_1.setBounds(705, 305, 150, 35);
 		contentPane.add(btnCalculateCost_1);
 		
 		btnBrowseFiles = new JButton("Browse  Files");
@@ -452,7 +446,7 @@ public class Cloud2 extends JFrame {
 		btnBrowseFiles.setFont(new Font("Cambria", Font.BOLD, 18));
 		btnBrowseFiles.setBorder(null);
 		btnBrowseFiles.setBackground(new Color(65, 105, 225));
-		btnBrowseFiles.setBounds(93, 310, 200, 35);
+		btnBrowseFiles.setBounds(93, 305, 200, 35);
 		contentPane.add(btnBrowseFiles);
 		
 		btnCalculateCost_2 = new JButton("Reset  Cost");
@@ -506,7 +500,7 @@ public class Cloud2 extends JFrame {
 		btnCalculateCost_2.setFont(new Font("Cambria", Font.BOLD, 18));
 		btnCalculateCost_2.setBorder(null);
 		btnCalculateCost_2.setBackground(new Color(65, 105, 225));
-		btnCalculateCost_2.setBounds(1040, 310, 167, 35);
+		btnCalculateCost_2.setBounds(1040, 305, 167, 35);
 		contentPane.add(btnCalculateCost_2);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
@@ -563,7 +557,7 @@ public class Cloud2 extends JFrame {
 		btnCalculateCost_1_1.setFont(new Font("Cambria", Font.BOLD, 30));
 		btnCalculateCost_1_1.setBorder(null);
 		btnCalculateCost_1_1.setBackground(new Color(65, 105, 225));
-		btnCalculateCost_1_1.setBounds(860, 310, 35, 35);
+		btnCalculateCost_1_1.setBounds(860, 305, 35, 35);
 		contentPane.add(btnCalculateCost_1_1);
 		
 		btnCalculateCost_1_1_1 = new JButton("-");
@@ -606,7 +600,7 @@ public class Cloud2 extends JFrame {
 		btnCalculateCost_1_1_1.setFont(new Font("Cambria", Font.BOLD, 32));
 		btnCalculateCost_1_1_1.setBorder(null);
 		btnCalculateCost_1_1_1.setBackground(new Color(65, 105, 225));
-		btnCalculateCost_1_1_1.setBounds(900, 310, 35, 35);
+		btnCalculateCost_1_1_1.setBounds(900, 305, 35, 35);
 		contentPane.add(btnCalculateCost_1_1_1);
 		
 		
