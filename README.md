@@ -1,6 +1,6 @@
 # Algorithm for Finding the Minimum Cost of Storing and Regenerating Datasets in Multiple Clouds
 
-Instructions :
+# Instructions :
 
 1. Create a java project in your IDE (I used Eclipse IDE 2020-12).
 2. Download and install XAMPP from https://www.apachefriends.org/index.html and create a database and a table on your localhost.
